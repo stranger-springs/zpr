@@ -30,11 +30,13 @@ public class FetchDataService {
 
     private final EnumMap<CryptocurrencyType, String> endpoints;
     private final CryptocurrencyMapper cryptoCurrencyMapper;
+    private final Calculator calculator;
 
     @Autowired
     public FetchDataService(CryptoCurrencyDAO cryptoCurrencyDAO, CryptocurrencyMapper currencyMapper) {
         this.cryptoCurrencyDAO = cryptoCurrencyDAO;
         this.cryptoCurrencyMapper = currencyMapper;
+        this.calculator = new Calculator();
 
         endpoints = new EnumMap<>(CryptocurrencyType.class);
         endpoints.put(BTC, "http://localhost:8080/currency/bitcoin");
@@ -63,10 +65,15 @@ public class FetchDataService {
                 cryptoCurrencyMapper.toLiteCoin(Objects.requireNonNull(litecoin.getBody()), timestamp),
                 cryptoCurrencyMapper.toZcash(Objects.requireNonNull(zcash.getBody()), timestamp)
         );
-        System.out.println("Time for dao: " + ChronoUnit.MILLIS.between(timestamp, LocalDateTime.now()));
 
         System.out.println("Time: " + ChronoUnit.MILLIS.between(before, LocalDateTime.now()));
 
+    }
+
+    // test for scheduling native method call
+    @Scheduled(fixedRate = 5000, initialDelay = 5000)
+    public void updateCpp() {
+        calculator.sayHelloFromCpp();
     }
 
 

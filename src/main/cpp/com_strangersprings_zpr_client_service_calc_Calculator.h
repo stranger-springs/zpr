@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_sayHello
   (JNIEnv *, jobject);
 
+/*
+ * Class:     com_strangersprings_zpr_client_service_calc_Calculator
+ * Method:    calculate
+ * Signature: (Lcom/strangersprings/zpr/client/service/calc/CurrencyDTO;)Lcom/strangersprings/zpr/client/service/calc/CurrencyIndicator;
+ */
+JNIEXPORT jobject JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_calculate
+  (JNIEnv *, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

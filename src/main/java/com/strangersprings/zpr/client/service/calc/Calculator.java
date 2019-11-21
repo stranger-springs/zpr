@@ -6,10 +6,15 @@ public class Calculator {
         System.loadLibrary("native");
     }
 
-    public Calculator() {
-        System.out.println("Library path: " + System.getProperty("java.library.path"));
+    public void sayHelloFromCpp() {
         sayHello();
     }
 
+    public double getIndicators(CurrencyDTO currencyDTO) {
+        return calculate(currencyDTO).value;
+    }
+
     private native void sayHello();
+
+    private native CurrencyIndicator calculate( CurrencyDTO currencyDTO);
 }

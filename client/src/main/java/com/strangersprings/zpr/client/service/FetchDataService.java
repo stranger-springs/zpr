@@ -1,9 +1,9 @@
 package com.strangersprings.zpr.client.service;
 
-import com.strangersprings.zpr.client.service.calc.Calculator;
-import com.strangersprings.zpr.client.model.CurrencyData;
 import com.strangersprings.zpr.client.model.CryptocurrencyType;
+import com.strangersprings.zpr.client.model.CurrencyData;
 import com.strangersprings.zpr.client.repository.CryptoCurrencyDAO;
+import com.strangersprings.zpr.client.service.calc.Calculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.EnumMap;
 import java.util.Objects;
 
-import static com.strangersprings.zpr.client.service.Utils.getCurrentTimestamp;
 import static com.strangersprings.zpr.client.model.CryptocurrencyType.*;
+import static com.strangersprings.zpr.client.service.Utils.getCurrentTimestamp;
 
 @Service
 public class FetchDataService {

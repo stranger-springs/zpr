@@ -12,7 +12,7 @@ cd ${cppPath}
 
 # compile
 g++ -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux \
-        com_strangersprings_zpr_client_service_calc_Calculator.cpp -o com_strangersprings_zpr_client_service_calc_Calculator.o
+  com_strangersprings_zpr_client_service_calc_Calculator.cpp -o com_strangersprings_zpr_client_service_calc_Calculator.o
 
 # build shard library
 g++ -shared -fPIC -o "${nativePath}libnative.so" com_strangersprings_zpr_client_service_calc_Calculator.o -lc

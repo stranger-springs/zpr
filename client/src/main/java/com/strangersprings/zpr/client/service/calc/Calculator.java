@@ -16,5 +16,5 @@ public class Calculator {
 
     private native void sayHello();
 
-    private native CurrencyIndicator calculate( CurrencyDTO currencyDTO);
+    private native CurrencyIndicator calculate(CurrencyDTO currencyDTO);
 }

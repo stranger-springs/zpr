@@ -16,7 +16,7 @@ public class CurrencyApi {
         return CurrencyData.builder()
                 .ask(0f)
                 .bid(0f)
-                .price(getRandomPrice(8000f, 10000f))
+                .price(getRandomPrice(8500f, 9000f))
                 .exchange("bitcoinusd")
                 .pair("abc")
                 .build();

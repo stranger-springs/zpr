@@ -1,0 +1,54 @@
+.app {
+    background-color:whitesmoke;
+    text-align: center;
+    color: black;
+    margin: 0px;
+    padding: 10px;
+}
+
+.select {
+    color: black;
+}
+
+.cryptocurrency {
+    letter-spacing: 3px;
+    font-size: 70px;
+    font-family: 'Lucida Console';
+    padding: 10px 0px 30px;
+}
+    
+
+.crypto {
+    color: cadetblue;
+}
+
+.currency {
+    color: darkgreen;
+}
+
+.cryptolist {
+    width: 300px;
+    height: 300px;
+    list-style-type: none;
+    
+}
+
+.desc {
+    display: inline;
+}
+
+.logo {
+    display: inline-block;
+    text-align: right;
+    width: 300px;
+    margin: 0px;
+}
+
+#image {
+    float: left; 
+ 
+}
+
+#abbr {
+    float: left;
+}

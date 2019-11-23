@@ -18,4 +18,8 @@ class BitcoinRepoProxy {
     List<Bitcoin> findAll() {
         return repository.findAll();
     }
+
+    Bitcoin findLast() {
+        return repository.findTopByOrderByTimestampDesc();
+    }
 }

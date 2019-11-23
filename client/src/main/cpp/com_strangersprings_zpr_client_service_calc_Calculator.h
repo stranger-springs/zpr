@@ -23,6 +23,30 @@ JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculat
 JNIEXPORT jobject JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_calculate
   (JNIEnv *, jobject, jobject);
 
+/*
+ * Class:     com_strangersprings_zpr_client_service_calc_Calculator
+ * Method:    bitcoinAverage
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_bitcoinAverage
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_strangersprings_zpr_client_service_calc_Calculator
+ * Method:    init
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_strangersprings_zpr_client_service_calc_Calculator
+ * Method:    insertBitcoin
+ * Signature: (Lcom/strangersprings/zpr/client/service/calc/CurrencyDTO;)V
+ */
+JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_insertBitcoin
+  (JNIEnv *, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

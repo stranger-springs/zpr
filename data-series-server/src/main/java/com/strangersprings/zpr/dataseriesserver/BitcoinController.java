@@ -24,4 +24,10 @@ public class BitcoinController {
     public List<BitcoinDTO> findAll() {
         return service.findAll();
     }
+
+    @GetMapping("/last")
+    public BitcoinDTO getLastOne() {
+        return service.findLastOne();
+    }
+
 }

@@ -23,4 +23,8 @@ public class BitcoinService {
                 .map(mapper::toBitcoinDTO)
                 .collect(Collectors.toList());
     }
+
+    public BitcoinDTO findLastOne() {
+        return mapper.toBitcoinDTO(repoProxy.findLast());
+    }
 }

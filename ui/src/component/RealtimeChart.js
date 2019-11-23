@@ -1,60 +1,63 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CanvasJSReact from '../lib/canvasjs.react';
+
+import _ from 'lodash'
+
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var CanvasJS = CanvasJSReact.CanvasJS;
-
-var dataPoints = [];
 var updateInterval = 5000;
-class RealtimeChart extends Component {
 
-	state = {
-		points: []
-	};
+class RealtimeChart extends React.Component {
+	
+	constructor(props) {
+		super(props);
+		this.state = {
+			points: []
+		}
+	}
 
 	componentDidMount() {
-			this.fetchData();
-			setInterval(this.updateChart, updateInterval);
+		this.fetchData();
+		setInterval(this.updateChart, updateInterval);
+	}
+
+	updateState = (points) => {
+		this.setState({
+			points: points
+		})
 	}
 
 	updateChart = () => {
-		var chart = this.chart;
 		fetch('http://localhost:8081/bitcoin/last')
 			.then(res => res.json())
-			.then(data => {
-					var dateStr = data.timestamp;
-					var date = new Date(dateStr);
-					dataPoints.push({
-						x: date,
-						y: data.price
-					});
-				dataPoints.splice(0,1);
-				if(dataPoints.length > 150){
-					dataPoints.splice(0, dataPoints.length - 150);
-				}
-				chart.render();
+			.then(currency => {
+				var points = this.state.points;
+				points.splice(0 , 1);
+				points.push(this.getMappedPoint(currency));
+
+				this.updateState(points);
+
+				this.chart.render();
 			});
 	}
 
 	fetchData = () => {
-		var chart = this.chart;
 		fetch('http://localhost:8081/bitcoin')
 			.then(res => res.json())
-			.then(data => {
-				for( var i = 0 ; i < data.length; ++i){
-					var dateStr = data[i].timestamp;
-					var date = new Date(dateStr);
-					dataPoints.push({
-						x: date,
-						y: data[i].price
-					});
-				}
-				if(dataPoints.length > 150){
-					dataPoints.splice(0, dataPoints.length - 150);
-				}
-				chart.render();
+			.then(currencies => {
+				const tempPoints = currencies.length > 150 ? currencies.slice(currencies.length - 150, currencies.length) : currencies;
+
+				this.updateState(_.map(tempPoints, this.getMappedPoint));
+
+				this.chart.render();
 			});
 
 	}
+
+	getMappedPoint = (item) => {
+		return { x: new Date(item.timestamp), y: item.price}
+	}
+
 	render() {
 		const options = {
 			theme: "light2",
@@ -75,7 +78,7 @@ class RealtimeChart extends Component {
 				type: "line",
 				xValueFormatString: "DD MMM",
 				markerSize: 5,
-				dataPoints: dataPoints
+				dataPoints: this.state.points
 			}]
 		}
 		return (

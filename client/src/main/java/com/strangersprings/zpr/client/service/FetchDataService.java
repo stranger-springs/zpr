@@ -59,6 +59,10 @@ public class FetchDataService {
         ResponseEntity<CurrencyData> zcash = zcashFetcher.getCurrentData();
 
         LocalDateTime timestamp = getCurrentTimestamp();
+
+        // insert to buffer in cpp
+        calculator.insertBitcoinDTO(cryptoCurrencyMapper.toCurrencyDTO(Objects.requireNonNull(bitcoin.getBody())));
+
         cryptoCurrencyDAO.saveCurrencies(
                 cryptoCurrencyMapper.toBitcoin(Objects.requireNonNull(bitcoin.getBody()), timestamp),
                 cryptoCurrencyMapper.toEthernum(Objects.requireNonNull(ethernum.getBody()), timestamp),
@@ -66,14 +70,13 @@ public class FetchDataService {
                 cryptoCurrencyMapper.toZcash(Objects.requireNonNull(zcash.getBody()), timestamp)
         );
 
-        System.out.println("Time: " + ChronoUnit.MILLIS.between(before, LocalDateTime.now()));
-
+        System.out.println("Update time: " + ChronoUnit.MILLIS.between(before, LocalDateTime.now()));
     }
 
     // test for scheduling native method call
-    @Scheduled(fixedRate = 5000, initialDelay = 5000)
-    public void updateCpp() {
-        calculator.sayHelloFromCpp();
+    @Scheduled(fixedRate = 30000, initialDelay = 30000)
+    public void updateAverage() {
+        System.out.println("Update Average :" + calculator.getBitcoinAverage());
     }
 
 

@@ -6,6 +6,10 @@ public class Calculator {
         System.loadLibrary("native");
     }
 
+    public Calculator() {
+        init();
+    }
+
     public void sayHelloFromCpp() {
         sayHello();
     }
@@ -17,4 +21,18 @@ public class Calculator {
     private native void sayHello();
 
     private native CurrencyIndicator calculate(CurrencyDTO currencyDTO);
+
+    private native double bitcoinAverage();
+
+    private native void init();
+
+    public void insertBitcoinDTO(CurrencyDTO currencyDTO) {
+        insertBitcoin(currencyDTO);
+    }
+
+    public double getBitcoinAverage() {
+        return bitcoinAverage();
+    }
+
+    private native void insertBitcoin(CurrencyDTO currencyDTO);
 }

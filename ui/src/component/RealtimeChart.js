@@ -1,11 +1,11 @@
 import React from 'react';
 import CanvasJSReact from '../lib/canvasjs.react';
-
 import _ from 'lodash'
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var CanvasJS = CanvasJSReact.CanvasJS;
 var updateInterval = 5000;
+var points = 150;
 
 class RealtimeChart extends React.Component {
 	
@@ -17,8 +17,13 @@ class RealtimeChart extends React.Component {
 	}
 
 	componentDidMount() {
+		this.mounted = true; // cannot update the state when an async task is terminated
 		this.fetchData();
 		setInterval(this.updateChart, updateInterval);
+	}
+
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	updateState = (points) => {
@@ -28,24 +33,26 @@ class RealtimeChart extends React.Component {
 	}
 
 	updateChart = () => {
-		fetch('http://localhost:8081/bitcoin/last')
+		fetch(this.props.apiLast)
 			.then(res => res.json())
 			.then(currency => {
-				var points = this.state.points;
-				points.splice(0 , 1);
-				points.push(this.getMappedPoint(currency));
+				if(this.mounted) {
+					var points = this.state.points;
+					points.splice(0, 1);
+					points.push(this.getMappedPoint(currency));
 
-				this.updateState(points);
+					this.updateState(points);
 
-				this.chart.render();
+					this.chart.render();
+				}
 			});
 	}
 
 	fetchData = () => {
-		fetch('http://localhost:8081/bitcoin')
+		fetch(this.props.api)
 			.then(res => res.json())
 			.then(currencies => {
-				const tempPoints = currencies.length > 150 ? currencies.slice(currencies.length - 150, currencies.length) : currencies;
+				const tempPoints = currencies.length > points ? currencies.slice(currencies.length - points, currencies.length) : currencies;
 
 				this.updateState(_.map(tempPoints, this.getMappedPoint));
 
@@ -65,7 +72,7 @@ class RealtimeChart extends React.Component {
 			exportEnabled: true,
 			zoomEnabled: true,
 			title:{
-				text: "Bitcoin Price"
+				text: this.props.title
 			},
 			axisY:{
 				prefix: "$",

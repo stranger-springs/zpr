@@ -1,6 +1,5 @@
-package com.strangersprings.zpr.client.api;
+package com.strangersprings.zpr.currencyapi.api;
 
-import com.strangersprings.zpr.client.model.CurrencyData;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

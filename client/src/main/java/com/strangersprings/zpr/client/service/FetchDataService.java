@@ -5,6 +5,7 @@ import com.strangersprings.zpr.client.model.CurrencyData;
 import com.strangersprings.zpr.client.repository.CryptoCurrencyDAO;
 import com.strangersprings.zpr.client.service.calc.Calculator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -33,16 +34,18 @@ public class FetchDataService {
     private final Calculator calculator;
 
     @Autowired
-    public FetchDataService(CryptoCurrencyDAO cryptoCurrencyDAO, CryptocurrencyMapper currencyMapper) {
+    public FetchDataService(CryptoCurrencyDAO cryptoCurrencyDAO, CryptocurrencyMapper currencyMapper, @Value("${app.api.url}") String apiUrl) {
         this.cryptoCurrencyDAO = cryptoCurrencyDAO;
         this.cryptoCurrencyMapper = currencyMapper;
         this.calculator = new Calculator();
 
+        System.out.println("api url is: " + apiUrl);
+
         endpoints = new EnumMap<>(CryptocurrencyType.class);
-        endpoints.put(BTC, "http://localhost:8080/currency/bitcoin");
-        endpoints.put(ETH, "http://localhost:8080/currency/ethernum");
-        endpoints.put(LTC, "http://localhost:8080/currency/litecoin");
-        endpoints.put(ZEC, "http://localhost:8080/currency/zcash");
+        endpoints.put(BTC, apiUrl + "/currency/bitcoin");
+        endpoints.put(ETH, apiUrl + "/currency/ethernum");
+        endpoints.put(LTC, apiUrl + "/currency/litecoin");
+        endpoints.put(ZEC, apiUrl + "/currency/zcash");
 
         this.bitcoinFetcher = new DataFetcher<>(endpoints.get(BTC), HttpEntity.EMPTY, CurrencyData.class);
         this.ethernumFetcher = new DataFetcher<>(endpoints.get(ETH), HttpEntity.EMPTY, CurrencyData.class);

@@ -28,8 +28,8 @@ public class CryptoCurrencyDAOImpl implements CryptoCurrencyDAO {
     @Override
     public void saveCurrencies(Bitcoin bitcoin, Ethernum ethernum, Litecoin litecoin, ZCash zCash) {
         jdbcTemplate.update(insertSQLs.get(BTC), bitcoin.getTimestamp(), bitcoin.getPrice());
-        jdbcTemplate.update(insertSQLs.get(ETH), ethernum.getTimestamp(), bitcoin.getPrice());
-        jdbcTemplate.update(insertSQLs.get(LTC), litecoin.getTimestamp(), bitcoin.getPrice());
-        jdbcTemplate.update(insertSQLs.get(ZEC), zCash.getTimestamp(), bitcoin.getPrice());
+        jdbcTemplate.update(insertSQLs.get(ETH), ethernum.getTimestamp(), ethernum.getPrice());
+        jdbcTemplate.update(insertSQLs.get(LTC), litecoin.getTimestamp(), litecoin.getPrice());
+        jdbcTemplate.update(insertSQLs.get(ZEC), zCash.getTimestamp(), zCash.getPrice());
     }
 }

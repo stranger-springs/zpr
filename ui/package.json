@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "date-picker": "^0.5.0",
     "lodash": "^4.17.13",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
-    "react-datepicker": "^2.10.1",
     "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",

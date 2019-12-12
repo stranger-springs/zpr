@@ -1,5 +1,8 @@
 package com.strangersprings.zpr.client.service.calc;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Calculator {
 
     static {
@@ -7,32 +10,20 @@ public class Calculator {
     }
 
     public Calculator() {
-        init();
+        init(Arrays.asList("bitcoin", "ethernum", "litecoin", "zcash"));
     }
 
     public void sayHelloFromCpp() {
         sayHello();
     }
 
-    public double getIndicators(CurrencyDTO currencyDTO) {
-        return calculate(currencyDTO).value;
+    public List<CurrencyIndicesDTO> getIndicators(List<CurrencyDTO> currencyDTOS) {
+        return calculateAll(currencyDTOS);
     }
 
     private native void sayHello();
 
-    private native CurrencyIndicator calculate(CurrencyDTO currencyDTO);
+    private native void init(List<String> names);
 
-    private native double bitcoinAverage();
-
-    private native void init();
-
-    public void insertBitcoinDTO(CurrencyDTO currencyDTO) {
-        insertBitcoin(currencyDTO);
-    }
-
-    public double getBitcoinAverage() {
-        return bitcoinAverage();
-    }
-
-    private native void insertBitcoin(CurrencyDTO currencyDTO);
+    private native List<CurrencyIndicesDTO> calculateAll(List<CurrencyDTO> currencyDTOS);
 }

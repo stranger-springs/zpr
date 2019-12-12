@@ -4,6 +4,8 @@ import com.strangersprings.zpr.client.model.CryptocurrencyType;
 import com.strangersprings.zpr.client.model.CurrencyData;
 import com.strangersprings.zpr.client.repository.CryptoCurrencyDAO;
 import com.strangersprings.zpr.client.service.calc.Calculator;
+import com.strangersprings.zpr.client.service.calc.CurrencyDTO;
+import com.strangersprings.zpr.client.service.calc.CurrencyIndicesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -12,8 +14,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Objects;
 
 import static com.strangersprings.zpr.client.model.CryptocurrencyType.*;
@@ -56,30 +61,42 @@ public class FetchDataService {
     @Scheduled(fixedRate = 5000, initialDelay = 5000)
     private void update() {
         LocalDateTime before = LocalDateTime.now();
-        ResponseEntity<CurrencyData> bitcoin = bitcoinFetcher.getCurrentData();
-        ResponseEntity<CurrencyData> ethernum = ethernumFetcher.getCurrentData();
-        ResponseEntity<CurrencyData> litecoin = litecoinFetcher.getCurrentData();
-        ResponseEntity<CurrencyData> zcash = zcashFetcher.getCurrentData();
+        ResponseEntity<CurrencyData> bitcoinRes = bitcoinFetcher.getCurrentData();
+        ResponseEntity<CurrencyData> ethernumRes = ethernumFetcher.getCurrentData();
+        ResponseEntity<CurrencyData> litecoinRes = litecoinFetcher.getCurrentData();
+        ResponseEntity<CurrencyData> zcashRes = zcashFetcher.getCurrentData();
 
         LocalDateTime timestamp = getCurrentTimestamp();
-
-        // insert to buffer in cpp
-        calculator.insertBitcoinDTO(cryptoCurrencyMapper.toCurrencyDTO(Objects.requireNonNull(bitcoin.getBody())));
+        CurrencyData bitcoin = Objects.requireNonNull(bitcoinRes.getBody());
+        CurrencyData ethernum = Objects.requireNonNull(ethernumRes.getBody());
+        CurrencyData litecoin = Objects.requireNonNull(litecoinRes.getBody());
+        CurrencyData zcash = Objects.requireNonNull(zcashRes.getBody());
 
         cryptoCurrencyDAO.saveCurrencies(
-                cryptoCurrencyMapper.toBitcoin(Objects.requireNonNull(bitcoin.getBody()), timestamp),
-                cryptoCurrencyMapper.toEthernum(Objects.requireNonNull(ethernum.getBody()), timestamp),
-                cryptoCurrencyMapper.toLiteCoin(Objects.requireNonNull(litecoin.getBody()), timestamp),
-                cryptoCurrencyMapper.toZcash(Objects.requireNonNull(zcash.getBody()), timestamp)
+                cryptoCurrencyMapper.toBitcoin(bitcoin, timestamp),
+                cryptoCurrencyMapper.toEthernum(ethernum, timestamp),
+                cryptoCurrencyMapper.toLiteCoin(litecoin, timestamp),
+                cryptoCurrencyMapper.toZcash(zcash, timestamp)
+        );
+
+        LocalDateTime beforeCalc = getCurrentTimestamp();
+        // TODO save indicators in database
+        List<CurrencyIndicesDTO> indicators = calculator.getIndicators(Arrays.asList(
+                new CurrencyDTO(timestamp.toEpochSecond(ZoneOffset.UTC), bitcoin.getPrice(), "bitcoin"),
+                new CurrencyDTO(timestamp.toEpochSecond(ZoneOffset.UTC), ethernum.getPrice(), "ethernum"),
+                new CurrencyDTO(timestamp.toEpochSecond(ZoneOffset.UTC), litecoin.getPrice(), "litecoin"),
+                new CurrencyDTO(timestamp.toEpochSecond(ZoneOffset.UTC), zcash.getPrice(), "zcash")
+                )
         );
 
         System.out.println("Update time: " + ChronoUnit.MILLIS.between(before, LocalDateTime.now()));
+        System.out.println("Calc time: " + ChronoUnit.MILLIS.between(beforeCalc, LocalDateTime.now()));
     }
 
     // test for scheduling native method call
     @Scheduled(fixedRate = 30000, initialDelay = 30000)
     public void updateAverage() {
-        System.out.println("Update Average :" + calculator.getBitcoinAverage());
+        // FIXED rate update for average values
     }
 
 

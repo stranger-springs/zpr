@@ -12,12 +12,4 @@ class CalculatorTest {
         // .. load other dependent libraries
         System.loadLibrary("native");
     }
-
-    @Test
-    void getIndicators() {
-        Calculator calculator = new Calculator();
-
-        double value = calculator.getIndicators(new CurrencyDTO(1L, 10));
-        assertEquals(12, value);
-    }
 }

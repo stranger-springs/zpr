@@ -44,6 +44,6 @@ public class CryptocurrencyMapper {
     }
 
     CurrencyDTO toCurrencyDTO(CurrencyData data) {
-        return new CurrencyDTO(ThreadLocalRandom.current().nextLong(Long.MAX_VALUE), data.getPrice());
+        return new CurrencyDTO(ThreadLocalRandom.current().nextLong(Long.MAX_VALUE), data.getPrice(), "");
     }
 }

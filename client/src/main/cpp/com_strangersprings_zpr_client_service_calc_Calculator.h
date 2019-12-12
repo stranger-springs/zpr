@@ -17,34 +17,18 @@ JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculat
 
 /*
  * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    calculate
- * Signature: (Lcom/strangersprings/zpr/client/service/calc/CurrencyDTO;)Lcom/strangersprings/zpr/client/service/calc/CurrencyIndicator;
+ * Method:    init
+ * Signature: (Ljava/util/List;)V
  */
-JNIEXPORT jobject JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_calculate
+JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
   (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    bitcoinAverage
- * Signature: ()D
+ * Method:    calculateAll
+ * Signature: (Ljava/util/List;)Ljava/util/List;
  */
-JNIEXPORT jdouble JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_bitcoinAverage
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    init
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    insertBitcoin
- * Signature: (Lcom/strangersprings/zpr/client/service/calc/CurrencyDTO;)V
- */
-JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_insertBitcoin
+JNIEXPORT jobject JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_calculateAll
   (JNIEnv *, jobject, jobject);
 
 #ifdef __cplusplus

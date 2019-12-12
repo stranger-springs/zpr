@@ -6,7 +6,7 @@ cppPath="./src/main/cpp"
 nativePath="../../../native/linux_x86_64/"
 
 # update headers
-javac -h ${cppPath} "${javaPath}Calculator.java" "${javaPath}CurrencyDTO.java" "${javaPath}CurrencyIndicator.java"
+javac -h ${cppPath} "${javaPath}Calculator.java" "${javaPath}CurrencyDTO.java" "${javaPath}CurrencyIndicesDTO.java"
 
 cd ${cppPath}
 

@@ -1,13 +1,7 @@
 #include "com_strangersprings_zpr_client_service_calc_Calculator.h"
 #include <iostream>
-#include <vector>
-#include <numeric>
-#include <algorithm>
-#include "ModelProxy.h"
-#include "JniUtils.h"
-#include "JArrayList.h"
-#include "JCurrencyDTO.h"
-#include "JCurrencyIndicesDTO.h"
+#include <string>
+#include "model/ModelProxy.h"
 
 JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_sayHello
   (JNIEnv *, jobject) {
@@ -16,42 +10,22 @@ JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculat
 }
 
 JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
-  (JNIEnv *env, jobject callingObject, jobject nameList) {
-
-    JArrayList jNames(env, nameList);
-    std::vector<std::string> names;
-    names.reserve(jNames.size());
-
-    for (int i = 0; i < jNames.size(); ++i) {
-         jstring element = static_cast<jstring>(jNames.get(i));
-         const char* pchars = env->GetStringUTFChars(element, nullptr);
-         names.emplace_back(pchars);
-         env->ReleaseStringUTFChars(element, pchars);
-         env->DeleteLocalRef(element);
-    }
-
-    ModelProxy &mp = ModelProxy::getInstance(names);
+  (JNIEnv *env, jobject callingObject, jstring jsonString) {
+    std::string config(env->GetStringUTFChars(jsonString, NULL));
+    ModelProxy &mp = ModelProxy::getInstance(config);
 }
 
-JNIEXPORT jobject JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_calculateAll
-  (JNIEnv *env, jobject callingObject, jobject currencyDTOs){
+JNIEXPORT jstring JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_updateIndex
+  (JNIEnv *env, jobject callingObject, jstring jsonString) {
+    std::string config(env->GetStringUTFChars(jsonString, NULL));
+    ModelProxy &mp = ModelProxy::getInstance("");
+    std::string updateResult = mp.updateIndex(config);
+    return env->NewStringUTF(updateResult.c_str());
+}
 
-    JArrayList jCurrencyDTOs(env, currencyDTOs);
-    std::vector<std::shared_ptr<DataDTO> > dataDTOs;
-    dataDTOs.reserve(jCurrencyDTOs.size());
-
-    for (int i = 0; i < jCurrencyDTOs.size(); ++i) {
-        JCurrencyDTO dto(env, jCurrencyDTOs.get(i));
-        dataDTOs.emplace_back(JniUtils::mapToDataDTO(env, dto));
-    }
-
-    ModelProxy &mp = ModelProxy::getInstance(std::vector<std::string>());
-    std::map<std::string, PIndicesDTO> calcResult = mp.calculateAll(dataDTOs);
-
-    JArrayList result(env, calcResult.size());
-    for (auto entry : calcResult) {
-        result.add(JniUtils::mapToJCurrencyIndicesDTO(env, entry.first, entry.second).getJavaObject());
-    }
-
-    return result.getJavaArrayList();
+JNIEXPORT jstring JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_updateAggregation
+  (JNIEnv *env, jobject callingObject) {
+    ModelProxy &mp = ModelProxy::getInstance("");
+    std::string updateResult = mp.updateAggregation();
+    return env->NewStringUTF(updateResult.c_str());
 }

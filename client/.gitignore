@@ -32,3 +32,4 @@ build/
 
 ### others
 *.class
+/src/main/cpp/.build/

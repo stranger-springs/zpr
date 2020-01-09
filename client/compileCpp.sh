@@ -3,20 +3,20 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 javaPath="./src/main/java/com/strangersprings/zpr/client/service/calc/"
 cppPath="./src/main/cpp"
-nativePath="../../../native/linux_x86_64/"
+nativePath="../../../../native/linux_x86_64/"
+filename="libnative.so"
 
 # update headers
-javac -h ${cppPath} "${javaPath}Calculator.java" "${javaPath}CurrencyDTO.java" "${javaPath}CurrencyIndicesDTO.java"
+javac -h ${cppPath} "${javaPath}Calculator.java"
 
-cd ${cppPath}
+cd ${cppPath} || exit
 
-# compile
-g++ -c -fPIC -I${JAVA_HOME}/include -I${JAVA_HOME}/include/linux -Ilib \
-  com_strangersprings_zpr_client_service_calc_Calculator.cpp -o com_strangersprings_zpr_client_service_calc_Calculator.o
+mkdir -p .build
+cd .build || exit
+cmake ..
+make
 
-# build shard library
-g++ -shared -fPIC -o "${nativePath}libnative.so" com_strangersprings_zpr_client_service_calc_Calculator.o -lc
-
-rm com_strangersprings_zpr_client_service_calc_Calculator.o
+#copy
+cp ${filename} "${nativePath}${filename}"
 
 cd - || exit

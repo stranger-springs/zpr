@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
 public class AggregationDTO {
     private List<CurrencyAggregationDTO> results = new ArrayList<>();
 }

@@ -1,4 +1,4 @@
-package com.strangersprings.zpr.client.service;
+package com.strangersprings.zpr.client.service.apiclient;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;

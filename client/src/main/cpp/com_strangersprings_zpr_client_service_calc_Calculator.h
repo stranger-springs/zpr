@@ -9,27 +9,27 @@ extern "C" {
 #endif
 /*
  * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    sayHello
- * Signature: ()V
+ * Method:    init
+ * Signature: (Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_sayHello
+JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     com_strangersprings_zpr_client_service_calc_Calculator
+ * Method:    updateAggregation
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_updateAggregation
   (JNIEnv *, jobject);
 
 /*
  * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    init
- * Signature: (Ljava/util/List;)V
+ * Method:    updateIndex
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_strangersprings_zpr_client_service_calc_Calculator
- * Method:    calculateAll
- * Signature: (Ljava/util/List;)Ljava/util/List;
- */
-JNIEXPORT jobject JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_calculateAll
-  (JNIEnv *, jobject, jobject);
+JNIEXPORT jstring JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_updateIndex
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

@@ -3,12 +3,6 @@
 #include <string>
 #include "model/ModelProxy.h"
 
-JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_sayHello
-  (JNIEnv *, jobject) {
-    std::string hello = "Hello from C++ !!";
-    std::cout << hello << std::endl;
-}
-
 JNIEXPORT void JNICALL Java_com_strangersprings_zpr_client_service_calc_Calculator_init
   (JNIEnv *env, jobject callingObject, jstring jsonString) {
     std::string config(env->GetStringUTFChars(jsonString, NULL));

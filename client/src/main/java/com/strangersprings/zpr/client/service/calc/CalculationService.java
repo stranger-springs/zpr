@@ -1,9 +1,8 @@
-package com.strangersprings.zpr.client.service;
+package com.strangersprings.zpr.client.service.calc;
 
 import com.strangersprings.zpr.client.dto.aggregation.AggregationDTO;
 import com.strangersprings.zpr.client.dto.currency.CurrenciesDTO;
 import com.strangersprings.zpr.client.dto.index.IndexesDTO;
-import com.strangersprings.zpr.client.service.calc.Calculator;
 
 public class CalculationService {
 

@@ -1,4 +1,4 @@
-package com.strangersprings.zpr.client.service;
+package com.strangersprings.zpr.client.service.calc;
 
 
 import com.google.gson.Gson;
@@ -8,6 +8,7 @@ public class JsonUtils {
         Gson gson = new Gson();
         return gson.fromJson(jsonString, classType);
     }
+
     static <T> String toJson(T obj) {
         Gson gson = new Gson();
         return gson.toJson(obj);

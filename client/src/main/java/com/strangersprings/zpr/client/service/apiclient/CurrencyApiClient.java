@@ -1,7 +1,9 @@
 package com.strangersprings.zpr.client.service.apiclient;
 
-import com.strangersprings.zpr.client.dto.currency.CurrenciesDTO;
+import com.strangersprings.zpr.client.model.CurrencyData;
+
+import java.util.Map;
 
 public interface CurrencyApiClient {
-    CurrenciesDTO getCurrencies();
+    Map<String, CurrencyData> getCurrencies();
 }

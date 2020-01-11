@@ -9,9 +9,9 @@ class WelcomePage extends React.Component {
 
   render(){
     return(
-        <div classname="welcome">
+        <div className="app">
           <Header/>
-          <h1>WelcomePage</h1>
+          <h1 className="welcome">Welcome in the CryptoCurrencyApp!</h1>
           <button onClick={this.start}>Start</button>
         </div>
     );

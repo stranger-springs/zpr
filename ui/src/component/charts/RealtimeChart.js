@@ -1,9 +1,8 @@
 import React from 'react';
-import CanvasJSReact from '../lib/canvasjs.react';
+import CanvasJSReact from '../../lib/canvasjs.react';
 import _ from 'lodash'
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-var CanvasJS = CanvasJSReact.CanvasJS;
 var updateInterval = 5000;
 var points = 150;
 
@@ -89,7 +88,7 @@ class RealtimeChart extends React.Component {
 			}]
 		}
 		return (
-			<div>
+			<div className="chart">
 				<CanvasJSChart options = {options}
 							   onRef={ref => this.chart = ref}
 				/>

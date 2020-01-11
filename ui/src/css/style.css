@@ -2,21 +2,32 @@
     background-color:whitesmoke;
     text-align: center;
     color: black;
-    margin: 0px;
-    padding: 10px;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top:0;
 }
 
-.select {
-    color: black;
+
+button {
+    width: 150px;
+    font-style: normal;
 }
 
+.welcome {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-style: italic;
+}
 .cryptocurrency {
     letter-spacing: 3px;
     font-size: 70px;
     font-family: 'Lucida Console';
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 10px 0px 30px;
 }
-    
 
 .crypto {
     color: cadetblue;
@@ -26,29 +37,50 @@
     color: darkgreen;
 }
 
-.cryptolist {
-    width: 300px;
-    height: 300px;
-    list-style-type: none;
-    
+.select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
 }
 
-.desc {
-    display: inline;
-}
-
-.logo {
-    display: inline-block;
-    text-align: right;
-    width: 300px;
-    margin: 0px;
-}
-
-#image {
-    float: left; 
- 
-}
-
-#abbr {
+.select-indices {
+    width: 400px;
     float: left;
+    margin-left: 10px;
 }
+
+.select-indices-block {
+    display: inline;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 0px 10px;
+}
+
+.chart {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+}
+
+.navigation-bar {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.navigation-button {
+    margin-left: 15px;
+}
+
+.datetime-picker {
+    align-content: center;
+}
+
+.datetimepicker-block {
+    display: inline;
+    align-content: center;
+}
+.picker {
+    float: left;
+    margin: 10px 20px;
+}
+

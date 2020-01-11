@@ -19,7 +19,7 @@ services:
   currency-api:
     image: currency-api:dss
     build:
-      context: ./currency-api
+    context: ./currency-api
       dockerfile: Dockerfile
     ports:
       - 8082:8082
@@ -69,7 +69,7 @@ services:
     networks:
       - frontend
 
-# Networks to be created to facilitate communication between containers
+## Networks to be created to facilitate communication between containers
 networks:
   backend:
   api:

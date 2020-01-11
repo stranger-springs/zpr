@@ -2,19 +2,12 @@ package com.strangersprings.zpr.client.service.apiclient;
 
 import com.strangersprings.zpr.client.config.AppConfig;
 import com.strangersprings.zpr.client.config.CurrencyConfig;
-import com.strangersprings.zpr.client.dto.currency.CurrenciesDTO;
-import com.strangersprings.zpr.client.dto.currency.CurrencyDTO;
 import com.strangersprings.zpr.client.model.CurrencyData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.ZoneOffset;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static com.strangersprings.zpr.client.service.Utils.getCurrentTimestamp;
 
 @Service
 public class CurrencyApiClientImpl implements CurrencyApiClient {
@@ -34,16 +27,11 @@ public class CurrencyApiClientImpl implements CurrencyApiClient {
     }
 
     @Override
-    public CurrenciesDTO getCurrencies() {
+    public Map<String, CurrencyData> getCurrencies() {
         Map<String, CurrencyData> fetchedData = new HashMap(fetchers.size());
         for (Map.Entry<String, CurrencyDataFetcher> entry : fetchers.entrySet()) {
             fetchedData.put(entry.getKey(), entry.getValue().getData());
         }
-
-        long id = getCurrentTimestamp().toEpochSecond(ZoneOffset.UTC);
-        List<CurrencyDTO> currencyDTOList = fetchedData.entrySet().stream()
-                .map(entry -> new CurrencyDTO(id, entry.getValue().getPrice(), entry.getKey()))
-                .collect(Collectors.toList());
-        return new CurrenciesDTO(currencyDTOList);
+        return fetchedData;
     }
 }

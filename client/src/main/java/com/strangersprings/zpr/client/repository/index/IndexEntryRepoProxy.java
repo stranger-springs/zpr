@@ -19,4 +19,8 @@ public class IndexEntryRepoProxy {
     public List<IndexEntry> saveAll(List<IndexEntry> indices) {
         return repository.saveAll(indices);
     }
+
+    public List<IndexEntry> findAll(String currencyType, String indexType) { return null;}
+
+    public IndexEntry getLastOne(String currencyType, String indexType) {return null;}
 }

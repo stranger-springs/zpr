@@ -19,4 +19,8 @@ public class CurrencyRepoProxy {
     public List<Currency> saveAll(List<Currency> currencies) {
         return this.repository.saveAll(currencies);
     }
+
+    public List<Currency> findAll(String type) { return null;}
+
+    public Currency getLastOne(String type) {return null;}
 }

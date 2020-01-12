@@ -11,8 +11,11 @@ Stat StatUtils::calcStats(const std::vector<std::shared_ptr<Data>> &buffer) {
 }
 
 std::pair<double, double> StatUtils::findMinMax(const std::vector<std::shared_ptr<Data>> &buffer) {
-
-    return std::pair<double, double>();
+    auto minmax = std::minmax_element(buffer.begin(), buffer.end(),
+                                      [](const std::shared_ptr<Data> &a, const std::shared_ptr<Data> &b) {
+                                          return a->getValue() < b->getValue();
+                                      });
+    return std::make_pair(minmax.first->get()->getValue(), minmax.second.base()->get()->getValue());
 }
 
 double StatUtils::sumData(const std::vector<std::shared_ptr<Data>> &buffer) {

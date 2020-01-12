@@ -63,7 +63,7 @@ public class Coordinator {
         Map<String, CurrencyData> currencies = currencyApiClient.getCurrencies();
         List<Currency> savedCurrencies = currencyService.saveCurrencies(currencies, Utils.getCurrentTimestamp());
         IndexesDTO indexesDTO = calculationService.updateIndex(new CurrenciesDTO(currencyMapper.toCurrencyDTOs(savedCurrencies)));
-        indexService.saveIndexes(indexesDTO);
+        indexService.saveIndexes(indexesDTO, savedCurrencies);
         AggregationDTO aggregationDTO = calculationService.updateAggregation();
         aggregationService.saveAggregation(aggregationDTO);
     }

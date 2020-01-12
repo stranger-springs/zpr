@@ -33,4 +33,7 @@ public class CurrencyService {
         return repository.saveAll(currenciesToSave);
     }
 
+    public List<Currency> findAllByIds(List<Long> ids){
+        return repository.findAllByIds(ids);
+    }
 }

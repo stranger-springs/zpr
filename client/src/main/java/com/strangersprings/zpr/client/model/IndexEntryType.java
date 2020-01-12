@@ -2,33 +2,32 @@ package com.strangersprings.zpr.client.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 
 import static javax.persistence.FetchType.LAZY;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Data
-@Table(name = "index")
-public class Index {
+@Table(name = "index_entry_type")
+public class IndexEntryType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = IDENTITY)
+    private Integer id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "currency_id")
-    private Currency currency;
+    private String name;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "index_type_id")
     private IndexType type;
 
-    private BigDecimal value;
+    @Column(name = "window_size")
+    private Integer windowSize;
 }

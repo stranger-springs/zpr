@@ -12,6 +12,6 @@ public class CacheConfig {
 
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("currency_types");
+        return new ConcurrentMapCacheManager("currency_types", "index_types");
     }
 }

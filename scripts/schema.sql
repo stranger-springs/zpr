@@ -20,7 +20,7 @@ USE `zpr` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zpr`.`currency_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `name_idx` USING BTREE (`name`) VISIBLE)
 ENGINE = InnoDB;
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `zpr`.`currency` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `currency_type_id` INT NOT NULL,
   `timestamp` DATETIME NOT NULL,
-  `price` DECIMAL NULL,
+  `price` DECIMAL(15,2) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_currency_currency_type_idx` (`currency_type_id` ASC) VISIBLE,
   INDEX `timestamp_idx` USING BTREE (`timestamp`) VISIBLE,
@@ -50,31 +50,50 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zpr`.`index_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `name_idx` USING BTREE (`name`) VISIBLE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `zpr`.`index`
+-- Table `zpr`.`index_entry_type`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `zpr`.`index` (
-  `id` BIGINT(30) NOT NULL AUTO_INCREMENT,
-  `currency_id` BIGINT(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `zpr`.`index_entry_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `window_size` INT NULL,
   `index_type_id` INT NOT NULL,
-  `value` DECIMAL NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_index_index_type_idx` (`index_type_id` ASC) VISIBLE,
-  INDEX `fk_index_currency_idx` (`currency_id` ASC) VISIBLE,
-  CONSTRAINT `fk_index_index_type1`
+  INDEX `name_idx` USING BTREE (`name`) VISIBLE,
+  INDEX `fk_index_entry_type_index_type_idx` (`index_type_id` ASC) VISIBLE,
+  CONSTRAINT `fk_index_entry_type_index_type`
     FOREIGN KEY (`index_type_id`)
     REFERENCES `zpr`.`index_type` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zpr`.`index_entry`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zpr`.`index_entry` (
+  `id` BIGINT(30) NOT NULL AUTO_INCREMENT,
+  `currency_id` BIGINT(20) NOT NULL,
+  `index_entry_type_id` INT NOT NULL,
+  `value` DECIMAL(30,10) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_index_currency_idx` (`currency_id` ASC) VISIBLE,
+  INDEX `fk_index_entry_index_entry_type_idx` (`index_entry_type_id` ASC) VISIBLE,
   CONSTRAINT `fk_index_currency1`
     FOREIGN KEY (`currency_id`)
     REFERENCES `zpr`.`currency` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_index_entry_index_entry_type`
+    FOREIGN KEY (`index_entry_type_id`)
+    REFERENCES `zpr`.`index_entry_type` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -85,7 +104,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zpr`.`aggregation_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `name_idx` USING BTREE (`name`) VISIBLE)
 ENGINE = InnoDB;
@@ -126,7 +145,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zpr`.`entry_type` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
+  `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `name_idx` USING BTREE (`name`) VISIBLE)
 ENGINE = InnoDB;
@@ -139,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `zpr`.`aggregation_entry` (
   `id` BIGINT(30) NOT NULL,
   `aggregation_id` BIGINT(20) NOT NULL,
   `entry_type_id` INT NOT NULL,
-  `value` DECIMAL NULL,
+  `value` DECIMAL(30,10) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_entry_entry_type_idx` (`entry_type_id` ASC) VISIBLE,
   INDEX `fk_entry_aggregation_idx` (`aggregation_id` ASC) VISIBLE,

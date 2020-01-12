@@ -20,6 +20,10 @@ public class CurrencyRepoProxy {
         return this.repository.saveAll(currencies);
     }
 
+    public List<Currency> findAllByIds(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
     public List<Currency> findAll(String type) { return null;}
 
     public Currency getLastOne(String type) {return null;}

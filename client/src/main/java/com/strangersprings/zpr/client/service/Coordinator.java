@@ -7,6 +7,7 @@ import com.strangersprings.zpr.client.dto.currency.CurrenciesDTO;
 import com.strangersprings.zpr.client.dto.index.IndexesDTO;
 import com.strangersprings.zpr.client.model.Currency;
 import com.strangersprings.zpr.client.model.CurrencyData;
+import com.strangersprings.zpr.client.service.aggregation.AggregationService;
 import com.strangersprings.zpr.client.service.apiclient.CurrencyApiClient;
 import com.strangersprings.zpr.client.service.calc.CalculationService;
 import com.strangersprings.zpr.client.service.currency.CurrencyMapper;

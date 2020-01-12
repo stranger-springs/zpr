@@ -8,7 +8,8 @@
   "indexConfig": {
     "types": [
       "ema",
-      "sma"
+      "sma",
+      "rsi"
     ],
     "indexes": [
       {
@@ -17,6 +18,14 @@
           {
             "key": "ema5",
             "value": 5
+          },
+          {
+            "key": "ema9",
+            "value": 9
+          },
+          {
+            "key": "ema14",
+            "value": 14
           }
         ]
       },
@@ -26,9 +35,27 @@
           {
             "key": "sma5",
             "value": 5
+          },
+          {
+            "key": "sma9",
+            "value": 9
+          },
+          {
+            "key": "sma14",
+            "value": 14
+          }
+        ]
+      },
+      {
+        "type": "rsi",
+        "entries": [
+          {
+            "key": "rsi14",
+            "value": 14
           }
         ]
       }
+
     ]
   },
   "aggregationConfig": {

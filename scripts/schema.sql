@@ -155,7 +155,7 @@ ENGINE = InnoDB;
 -- Table `zpr`.`aggregation_entry`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `zpr`.`aggregation_entry` (
-  `id` BIGINT(30) NOT NULL,
+  `id` BIGINT(30) NOT NULL AUTO_INCREMENT,
   `aggregation_id` BIGINT(20) NOT NULL,
   `entry_type_id` INT NOT NULL,
   `value` DECIMAL(30,10) NOT NULL,

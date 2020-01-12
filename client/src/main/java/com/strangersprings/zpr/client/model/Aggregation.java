@@ -32,6 +32,10 @@ public class Aggregation {
     @JoinColumn(name = "last_id")
     private Currency last;
 
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "aggregation_type_id")
+    private AggregationType type;
+
     @OneToMany(mappedBy = "aggregation", fetch = LAZY, cascade = PERSIST)
     private List<AggregationEntry> entries;
 }

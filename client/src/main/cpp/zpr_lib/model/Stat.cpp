@@ -24,3 +24,11 @@ double Stat::getMin() const {
 double Stat::getMax() const {
     return max_;
 }
+
+long Stat::getFirstId() const {
+    return firstId_;
+}
+
+long Stat::getLastId() const {
+    return lastId_;
+}

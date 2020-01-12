@@ -13,21 +13,21 @@ public:
 
     long getID() const override;
 
-
-
-private:
-    long id_;
-    long firstId_;
-    long lastId_;
-    double avg_;
-public:
     double getAvg() const;
 
     double getMin() const;
 
     double getMax() const;
 
+    long getFirstId() const;
+
+    long getLastId() const;
+
 private:
+    long id_;
+    long firstId_;
+    long lastId_;
+    double avg_;
     double min_;
     double max_;
 };

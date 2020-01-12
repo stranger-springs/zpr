@@ -2,8 +2,9 @@
 #define ZPR_STATUTILS_H
 
 #include <memory>
-#include <model/DataBuffer.h>
-#include <model/Currency.h>
+#include <functional>
+#include "model/DataBuffer.h"
+#include "model/Currency.h"
 #include "model/Stat.h"
 
 

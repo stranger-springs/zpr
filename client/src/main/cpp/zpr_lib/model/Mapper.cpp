@@ -56,7 +56,7 @@ Mapper::toStatDTOEntries(const std::string &id, const std::map<std::string, Stat
 }
 
 cf::StatDTO Mapper::toStatDTO(const std::string &id, const Stat &stat) {
-    return cf::StatDTO(id, mapStatToEntries(stat));
+    return cf::StatDTO(id, stat.getFirstId(), stat.getLastId(), mapStatToEntries(stat));
 }
 
 std::vector<cf::Entry<double>> Mapper::mapStatToEntries(const Stat &stat) {

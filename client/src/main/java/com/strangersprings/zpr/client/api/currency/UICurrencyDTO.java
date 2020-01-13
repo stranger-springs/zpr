@@ -1,15 +1,16 @@
 package com.strangersprings.zpr.client.api.currency;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class UICurrencyDTO {
 
     private Long id;
     private LocalDateTime timestamp;
     private double price;
+    private String type;
 }

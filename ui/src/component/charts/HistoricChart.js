@@ -5,17 +5,7 @@ import _ from "lodash";
 import Select from 'react-select'
 import TimestampPicker from "../TimestampPicker";
 import Chart from "./Chart";
-import bitcoinImg from '/home/aleksandra/ZPR/ui/src/images/bitcoin.svg';
-import zcashImg from '/home/aleksandra/ZPR/ui/src/images/zcash.svg';
-import ethernumImg from '/home/aleksandra/ZPR/ui/src/images/ethernum.svg';
-import litecoinImg from '/home/aleksandra/ZPR/ui/src/images/litecoin.svg';
-
-const options = [
-  {value: 'bitcoin', label: <div>Bitcoin (BTC) <img src={bitcoinImg} height="20px" width="20px"/></div>},
-  {value: 'zcash', label: <div>ZCash (ZEC) <img src={zcashImg} height="20px" width="20px"/></div>},
-  {value: 'litecoin', label: <div>Litecoin (LTC) <img src={litecoinImg} height="20px" width="20px"/></div>},
-  {value: 'ethernum', label: <div>Ethernum (ETC) <img src={ethernumImg} height="20px" width="20px"/></div>},
-];
+import {options} from "../CurrencyOptions";
 
 const optionsAggregation = [
   {value: 'minute', label: 'Minute'},

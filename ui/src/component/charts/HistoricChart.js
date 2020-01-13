@@ -1,53 +1,55 @@
-import React from 'react';
-import NavigationBar from "../NavigationBar";
-import Header from "../Header";
-import _ from "lodash";
-import Select from 'react-select'
-import TimestampPicker from "../TimestampPicker";
-import Chart from "./Chart";
-import {options} from "../CurrencyOptions";
+import React from "react"
+import NavigationBar from "../NavigationBar"
+import Header from "../Header"
+import _ from "lodash"
+import Select from "react-select"
+import TimestampPicker from "../TimestampPicker"
+import Chart from "./Chart"
+import {options} from "../CurrencyOptions"
 
 const optionsAggregation = [
-  {value: 'minute', label: 'Minute'},
-  {value: 'hourly', label: 'Hourly'},
-  {value: 'daily', label: 'Daily'},
-  {value: 'monthly', label: 'Monthly'},
-];
+  {value: "minute", label: "Minute"},
+  {value: "hourly", label: "Hourly"},
+  {value: "daily", label: "Daily"},
+  {value: "monthly", label: "Monthly"}
+]
 
 class HistoricChart extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       selectedOption: _.head(options),
       beginTimestamp: new Date(),
       endTimestamp: new Date(),
       aggregationType: _.head(optionsAggregation),
       api: ''
-    };
+    }
   }
 
   handleChange = (opt) => {
-    this.setState({selectedOption: opt});
+    this.setState({selectedOption: opt})
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return !_.isEqual(this.state.selectedOption, nextState.selectedOption);
+    return (!_.isEqual(this.state.selectedOption, nextState.selectedOption)) ||
+        (!_.isEqual(this.state.aggregationType, nextState.aggregationType))
   }
 
   saveDateRange = (event) => {
-    const startDate = this.state.beginTimestamp.toISOString().slice(0, -2);
-    const endDate = this.state.endTimestamp.toISOString().slice(0, -2);
-    const api = 'http://localhost:8080/historical/' + this.state.aggregationType.value + "/" + this.state.selectedOption.value  + '?start=' + startDate + "&end=" + endDate;
+    const startDate = this.state.beginTimestamp.toISOString().slice(0, -2)
+    const endDate = this.state.endTimestamp.toISOString().slice(0, -2)
+    const api = "http://localhost:8080/historical/" + this.state.aggregationType.value + "/" + this.state.selectedOption.value
+        + "?start=" + startDate + "&end=" + endDate
     this.setState({api: api})
   }
 
   handleChangeBegin = (date) => {
-    this.setState({beginTimestamp: date});
+    this.setState({beginTimestamp: date})
   }
 
   handleChangeEnd = (date) => {
-    this.setState({endTimestamp: date});
+    this.setState({endTimestamp: date})
   }
 
   handleChangeAggregation = (type) => {
@@ -55,7 +57,7 @@ class HistoricChart extends React.Component {
   }
 
   onApiChange = (newApi) => {
-    this.setState({api: newApi});
+    this.setState({api: newApi})
   }
 
   render() {
@@ -87,11 +89,10 @@ class HistoricChart extends React.Component {
               currency={this.state.selectedOption.value}
               api={this.state.api}
               aggregationType={this.state.aggregationType.value}
-              onApiChange={this.onApiChange}
           />
         </div>
     )
   }
 }
 
-export default HistoricChart;
+export default HistoricChart

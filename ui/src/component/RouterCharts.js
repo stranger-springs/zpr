@@ -1,9 +1,9 @@
-import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import WelcomePage from "./WelcomePage";
-import App from "./App";
-import HistoricChart from "./charts/HistoricChart";
-import IndicesPage from "./IndicesPage";
+import React from "react"
+import {BrowserRouter, Route, Switch} from "react-router-dom"
+import WelcomePage from "./WelcomePage"
+import App from "./App"
+import HistoricChart from "./charts/HistoricChart"
+import IndicesPage from "./IndicesPage"
 
 const RouterCharts = () => (
     <BrowserRouter>
@@ -14,6 +14,6 @@ const RouterCharts = () => (
         <Route path="/indices" component={IndicesPage}/>
       </Switch>
     </BrowserRouter>
-);
+)
 
-export default RouterCharts;
+export default RouterCharts

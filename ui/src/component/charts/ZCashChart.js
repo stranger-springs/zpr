@@ -1,17 +1,19 @@
-import React from 'react';
-import RealtimeChart from "./RealtimeChart";
+import React from "react"
+import RealtimeChart from "./RealtimeChart"
 
 
 class ZCashChart extends React.Component {
 
   render() {
-    const  {api, apiLast, title} = this.props;
+    const {api, apiLast, title} = this.props
     return (
-        <RealtimeChart api={api}
-                       apiLast={apiLast}
-                       title = {title}
+        <RealtimeChart
+            api={api}
+            apiLast={apiLast}
+            title={title}
         />
-    );
+    )
   }
 }
-export default ZCashChart;
+
+export default ZCashChart

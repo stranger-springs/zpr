@@ -8,12 +8,13 @@ services:
       - 3306:3306
     volumes:
       - ./scripts/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: zpr
       MYSQL_PASSWORD: user
     networks:
-      - database
+      - backend
 
   currency-api:
     image: currency-api:dss
@@ -23,6 +24,8 @@ services:
     ports:
       - 8082:8082
     restart: always
+    environment:
+      SERVER_PORT: 8082
     networks:
       - api
 
@@ -38,31 +41,14 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/zpr?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-      APP_API_URL: http://currency-api:8082
+      APP_APIURL: http://currency-api:8082
+      SERVER_PORT: 8080
     depends_on:
       - mysql
       - currency-api
     networks:
-      - database
       - api
-
-  dataseriesserver:
-    image: dataseriesserver:dss
-    build:
-      context: ./data-series-server
-      dockerfile: Dockerfile
-    ports:
-      - 8081:8081
-    restart: always
-    environment: # Pass environment variables to the service
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/zpr?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-    depends_on:
-      - client
-      - mysql
-    networks:
-      - database
+      - backend
       - frontend
 
   web:
@@ -71,20 +57,20 @@ services:
       context: ./ui
       dockerfile: Dockerfile
     volumes:
-      - './ui:/app'
-      - '/app/node_modules'
+      - ./ui:/app
+      - /app/node_modules
     ports:
-      - '3000:3000'
+      - 3000:3000
+    restart: always
     environment:
       - NODE_ENV=development
     depends_on:
-      - dataseriesserver
+      - client
     networks:
       - frontend
-    restart: always
 
 # Networks to be created to facilitate communication between containers
 networks:
-  database:
+  backend:
   api:
   frontend:

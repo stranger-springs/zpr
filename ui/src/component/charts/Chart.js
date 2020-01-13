@@ -1,43 +1,40 @@
-import React from 'react';
-import CanvasJSReact from '../../lib/canvasjs.react';
-import _ from 'lodash';
+import React from "react"
+import CanvasJSReact from "../../lib/canvasjs.react"
+import _ from "lodash"
 
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart
 
 class Chart extends React.Component {
 
-  constructor(props){
-    super(props);
+  constructor(props) {
+    super(props)
     this.state = {
       points: []
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-
-  }
-
   componentDidMount() {
-    this.fetchData();
+    this.fetchData()
   }
 
   fetchData = () => {
     fetch(this.props.api)
         .then(res => res.json())
         .then(data => {
-          this.updateState(_.map(data, this.getMappedPoint));
-        });
-    console.log(this.state.points);
-    this.chart.render();
+          this.updateState(_.map(data, this.getMappedPoint))
+        })
+    console.log(this.state.points)
+    this.chart.render()
   }
 
   getMappedPoint = (item) => {
-    return { x: new Date(item.timestamp), y: item.value}
+    return {x: new Date(item.timestamp), y: item.value}
   }
 
   updateState = (points) => {
     this.setState({points: points})
   }
+
   render() {
     const {currency, aggregationType} = this.props
     const options = {
@@ -45,10 +42,10 @@ class Chart extends React.Component {
       animationEnabled: true,
       exportEnabled: true,
       zoomEnabled: true,
-      title:{
+      title: {
         text: "Historic Chart for " + currency + " with " + aggregationType + " aggregation"
       },
-      axisY:{
+      axisY: {
         prefix: "$",
         includeZero: false
       },
@@ -61,12 +58,10 @@ class Chart extends React.Component {
     }
     return (
         <div className="chart">
-          <CanvasJSChart options = {options}
-                         onRef={ref => this.chart = ref}
-          />
+          <CanvasJSChart options={options} onRef={ref => this.chart = ref}/>
         </div>
-    );
+    )
   }
 }
 
-export default Chart;
+export default Chart

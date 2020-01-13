@@ -1,54 +1,56 @@
-import React from 'react';
-import NavigationBar from "./NavigationBar";
-import Header from "./Header";
-import _ from "lodash";
-import Select from 'react-select'
-import IndicesChart from "./charts/IndicesChart";
-import {options} from "./CurrencyOptions";
+import React from "react"
+import NavigationBar from "./NavigationBar"
+import Header from "./Header"
+import _ from "lodash"
+import Select from "react-select"
+import IndicesChart from "./charts/IndicesChart"
+import {options} from "./CurrencyOptions"
 
 const optionsIndices = [
-  {value: 'ema', label: 'Exponential Moving Average (EMA)'},
-  {value: 'sma', label: 'Simple Moving Average (SMA)'},
-  {value: 'rsi', label: 'Relative Strength Index (RSI)'}
-];
+  {value: "ema", label: "Exponential Moving Average (EMA)"},
+  {value: "sma", label: "Simple Moving Average (SMA)"},
+  {value: "rsi", label: "Relative Strength Index (RSI)"}
+]
 
 const optionsRange = [
-  {value: '5', label: '5'},
-  {value: '9', label: '9'},
-  {value: '14', label: '14'}
-];
+  {value: "5", label: "5"},
+  {value: "9", label: "9"},
+  {value: "14", label: "14"}
+]
 
 class IndicesPage extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       selectedOption: _.head(options),
       selectedIndex: _.head(optionsIndices),
       selectedRange: _.head(optionsRange),
-      title: '',
-      api: '',
-      apiLast: ''
-    };
+      title: "",
+      api: "",
+      apiLast: ""
+    }
   }
 
   handleChange = (opt) => {
-    this.setState({selectedOption: opt});
+    this.setState({selectedOption: opt})
   }
 
   handleChangeIndices = (opt) => {
-    this.setState({selectedIndex: opt});
+    this.setState({selectedIndex: opt})
   }
 
   handleChangeRange = (opt) => {
-    this.setState({selectedRange: opt});
+    this.setState({selectedRange: opt})
   }
 
   loadData = (event) => {
-    const apiLink = 'http://localhost:8080/index/' + this.state.selectedOption.value + '/' + this.state.selectedIndex.value + this.state.selectedRange.label;
-    const apiLinkLast = apiLink + '/last';
-    const title = this.state.selectedIndex.label + " for " + this.state.selectedOption.value + " with range " + this.state.selectedRange.label;
-    this.setState({title: title, api: apiLink, apiLast: apiLinkLast});
+    const apiLink = "http://localhost:8080/index/" + this.state.selectedOption.value + "/"
+        + this.state.selectedIndex.value + this.state.selectedRange.label
+    const apiLinkLast = apiLink + "/last"
+    const title = this.state.selectedIndex.label + " for " + this.state.selectedOption.value
+        + " with range " + this.state.selectedRange.label
+    this.setState({title: title, api: apiLink, apiLast: apiLinkLast})
   }
 
   render() {
@@ -94,4 +96,4 @@ class IndicesPage extends React.Component {
   }
 }
 
-export default IndicesPage;
+export default IndicesPage

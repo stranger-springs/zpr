@@ -1,14 +1,13 @@
 .app {
-    background-color:whitesmoke;
+    background-color: whitesmoke;
     text-align: center;
     color: black;
     position: fixed;
     height: 100%;
     width: 100%;
     left: 0;
-    top:0;
+    top: 0;
 }
-
 
 button {
     width: 150px;
@@ -20,6 +19,7 @@ button {
     margin-bottom: 20px;
     font-style: italic;
 }
+
 .cryptocurrency {
     letter-spacing: 3px;
     font-size: 70px;
@@ -79,6 +79,7 @@ button {
     display: inline;
     align-content: center;
 }
+
 .picker {
     float: left;
     margin: 10px 20px;

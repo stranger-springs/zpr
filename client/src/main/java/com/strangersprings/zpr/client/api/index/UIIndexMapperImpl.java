@@ -3,10 +3,6 @@ package com.strangersprings.zpr.client.api.index;
 import com.strangersprings.zpr.client.model.IndexEntry;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
-
 @Component
 public class UIIndexMapperImpl implements UIIndexMapper {
 

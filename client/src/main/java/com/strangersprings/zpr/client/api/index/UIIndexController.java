@@ -1,6 +1,5 @@
 package com.strangersprings.zpr.client.api.index;
 
-import com.strangersprings.zpr.client.repository.index.IndexEntryRepoProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

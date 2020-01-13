@@ -1,7 +1,5 @@
 package com.strangersprings.zpr.client.api.currency;
 
-import com.strangersprings.zpr.client.api.currency.UICurrencyDTO;
-import com.strangersprings.zpr.client.repository.currency.CurrencyRepoProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

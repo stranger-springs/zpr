@@ -59,7 +59,7 @@ public class Coordinator {
         return config;
     }
 
-    @Scheduled(fixedRate = 5000, initialDelay = 5000)
+    @Scheduled(fixedRate = 1000, initialDelay = 5000)
     private void update() {
         Map<String, CurrencyData> currencies = currencyApiClient.getCurrencies();
         List<Currency> savedCurrencies = currencyService.saveCurrencies(currencies, Utils.getCurrentTimestamp());

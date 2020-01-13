@@ -1,34 +1,26 @@
 package com.strangersprings.zpr.client.api.aggregation;
 
+import com.strangersprings.zpr.client.repository.aggregation.AggregationRepoProxy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UIAggregationService {
+    private final int FETCH_SIZE = 150;
+    private final AggregationRepoProxy repository;
+    private final UIAggregationMapper mapper;
+
+    @Autowired
+    public UIAggregationService(AggregationRepoProxy repository, UIAggregationMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public List<UIAggregationDTO> getHistoricalData(String currencyType, String aggregationType, LocalDateTime startDate, LocalDateTime endDate) {
-        //mock
-        List<UIAggregationDTO> list = new ArrayList<>();
-        list.add(generateItem(currencyType, aggregationType, startDate, endDate));
-        list.add(generateItem(currencyType, aggregationType, startDate.plusHours(1), endDate.plusHours(1)));
-        list.add(generateItem(currencyType, aggregationType, startDate.plusHours(2), endDate.plusHours(2)));
-        list.add(generateItem(currencyType, aggregationType, startDate.plusHours(3), endDate.plusHours(3)));
-        return list;
+        return mapper.toUIAggregationDTOs(repository.findAggregationsWithLimit(currencyType, aggregationType, startDate, endDate, FETCH_SIZE));
     }
 
-    private UIAggregationDTO generateItem(String currencyType, String aggregationType, LocalDateTime startTime, LocalDateTime endTime) {
-        return UIAggregationDTO.builder()
-                .id(1L)
-                .value(8000.00)
-                .currencyType(currencyType)
-                .aggregationType(aggregationType)
-                .startTime(startTime)
-                .endTime(endTime)
-                .max(10000.00)
-                .min(5000.00)
-                .build();
-    }
 }

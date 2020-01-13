@@ -24,7 +24,11 @@ public class CurrencyRepoProxy {
         return repository.findAllById(ids);
     }
 
-    public List<Currency> findAll(String type) { return null;}
+    public List<Currency> findAllByTypeWithLimit(String type, int limit) {
+        return repository.findCurrenciesByTypeWithLimit(type.toLowerCase(), limit);
+    }
 
-    public Currency getLastOne(String type) {return null;}
+    public Currency getLastOne(String type) {
+        return repository.findTopByType_NameOrderByIdDesc(type.toLowerCase());
+    }
 }

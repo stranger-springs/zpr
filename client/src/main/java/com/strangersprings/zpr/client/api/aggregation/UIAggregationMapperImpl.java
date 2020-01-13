@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class UIAggregationMapperImpl implements UIAggregationMapper{
+public class UIAggregationMapperImpl implements UIAggregationMapper {
     @Override
     public UIAggregationDTO toUIAggregationDTO(Aggregation aggregation) {
         return UIAggregationDTO.builder()
@@ -24,8 +24,8 @@ public class UIAggregationMapperImpl implements UIAggregationMapper{
 
     private double getValueByKey(List<AggregationEntry> entries, String key) {
         return entries.stream()
-                .filter(item->item.getType().getName().equals(key))
+                .filter(item -> item.getType().getName().equals(key))
                 .findFirst()
-                .map(item->item.getValue().doubleValue()).orElse(0.0);
+                .map(item -> item.getValue().doubleValue()).orElse(0.0);
     }
 }

@@ -1,16 +1,18 @@
 package com.strangersprings.zpr.client.api.index;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
+@Builder
 public class UIIndexDTO {
 
     private Long id;
     private LocalDateTime timestamp;
     private double value;
+    private String currencyType;
+    private String indexType;
 
 }

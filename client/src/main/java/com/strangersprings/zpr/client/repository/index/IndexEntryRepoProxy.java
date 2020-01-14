@@ -1,5 +1,6 @@
 package com.strangersprings.zpr.client.repository.index;
 
+import com.google.common.collect.Lists;
 import com.strangersprings.zpr.client.model.IndexEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,10 +22,10 @@ public class IndexEntryRepoProxy {
     }
 
     public List<IndexEntry> findAll(String currencyType, String indexType, int limit) {
-        return repository.findIndicesByTypeWithLimit(currencyType.toLowerCase(), indexType.toLowerCase(), limit);
+        return Lists.reverse(repository.findIndicesByTypeWithLimit(currencyType.toLowerCase(), indexType.toLowerCase(), limit));
     }
 
     public IndexEntry getLastOne(String currencyType, String indexType) {
-        return repository.findTopByCurrency_Type_NameAndTypeOrderByIdDesc(currencyType, indexType);
+        return repository.findTopByCurrency_Type_NameAndType_NameOrderByIdDesc(currencyType, indexType);
     }
 }

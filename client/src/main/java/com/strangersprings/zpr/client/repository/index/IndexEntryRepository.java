@@ -18,5 +18,5 @@ public interface IndexEntryRepository extends JpaRepository<IndexEntry, Long> {
                     "WHERE currency_type.name = ?1 AND index_entry_type.name = ?2 ORDER BY currency.id DESC LIMIT ?3")
     List<IndexEntry> findIndicesByTypeWithLimit(String currencyType, String indexType, int limit);
 
-    IndexEntry findTopByCurrency_Type_NameAndTypeOrderByIdDesc(String currencyType, String indexType);
+    IndexEntry findTopByCurrency_Type_NameAndType_NameOrderByIdDesc(String currencyType, String indexType);
 }

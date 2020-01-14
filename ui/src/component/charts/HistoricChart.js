@@ -23,7 +23,8 @@ class HistoricChart extends React.Component {
       beginTimestamp: new Date(),
       endTimestamp: new Date(),
       aggregationType: _.head(optionsAggregation),
-      api: ''
+      api: "",
+      points: []
     }
   }
 
@@ -33,7 +34,10 @@ class HistoricChart extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return (!_.isEqual(this.state.selectedOption, nextState.selectedOption)) ||
-        (!_.isEqual(this.state.aggregationType, nextState.aggregationType))
+        (!_.isEqual(this.state.aggregationType, nextState.aggregationType)) ||
+        (!_.isEqual(this.state.beginTimestamp, nextState.beginTimestamp)) ||
+        (!_.isEqual(this.state.endTimestamp, nextState.endTimestamp)) ||
+        (!_.isEqual(this.state.points, nextState.points))
   }
 
   saveDateRange = (event) => {
@@ -41,7 +45,7 @@ class HistoricChart extends React.Component {
     const endDate = this.state.endTimestamp.toISOString().slice(0, -2)
     const api = "http://localhost:8080/historical/" + this.state.aggregationType.value + "/" + this.state.selectedOption.value
         + "?start=" + startDate + "&end=" + endDate
-    this.setState({api: api})
+    this.setState({api: api}, () => this.fetchData())
   }
 
   handleChangeBegin = (date) => {
@@ -56,8 +60,20 @@ class HistoricChart extends React.Component {
     this.setState({aggregationType: type})
   }
 
-  onApiChange = (newApi) => {
-    this.setState({api: newApi})
+  fetchData = () => {
+    fetch(this.state.api)
+        .then(res => res.json())
+        .then(data => {
+          this.updateState(_.map(data, this.getMappedPoint))
+        })
+  }
+
+  getMappedPoint = (item) => {
+    return {x: new Date(item.startTime), y: item.value}
+  }
+
+  updateState = (points) => {
+    this.setState({points: points})
   }
 
   render() {
@@ -87,7 +103,7 @@ class HistoricChart extends React.Component {
           </div>
           <Chart
               currency={this.state.selectedOption.value}
-              api={this.state.api}
+              points={this.state.points}
               aggregationType={this.state.aggregationType.value}
           />
         </div>

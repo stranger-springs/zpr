@@ -1,42 +1,12 @@
 import React from "react"
 import CanvasJSReact from "../../lib/canvasjs.react"
-import _ from "lodash"
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart
 
 class Chart extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      points: []
-    }
-  }
-
-  componentDidMount() {
-    this.fetchData()
-  }
-
-  fetchData = () => {
-    fetch(this.props.api)
-        .then(res => res.json())
-        .then(data => {
-          this.updateState(_.map(data, this.getMappedPoint))
-        })
-    console.log(this.state.points)
-    this.chart.render()
-  }
-
-  getMappedPoint = (item) => {
-    return {x: new Date(item.timestamp), y: item.value}
-  }
-
-  updateState = (points) => {
-    this.setState({points: points})
-  }
-
   render() {
-    const {currency, aggregationType} = this.props
+    const {currency, aggregationType, points} = this.props
     const options = {
       theme: "light2",
       animationEnabled: true,
@@ -51,9 +21,9 @@ class Chart extends React.Component {
       },
       data: [{
         type: "line",
-        xValueFormatString: "DD MMM",
+        xValueFormatString: "DD MMM YY HH:mm",
         markerSize: 5,
-        dataPoints: this.state.points
+        dataPoints: points
       }]
     }
     return (

@@ -22,10 +22,10 @@ class NavigationBar extends React.Component {
   render() {
     return (
         <div className="navigation-bar">
-          <button className="navigation-button" onClick={this.switchHistoric}>Historic Chart</button>
-          <button className="navigation-button" onClick={this.switchRealtime}>Realtime Chart</button>
-          <button className="navigation-button" onClick={this.switchIndices}>Indices Chart</button>
           <button className="navigation-button" onClick={this.switchWelcome}>Welcome site</button>
+          <button className="navigation-button" onClick={this.switchRealtime}>Realtime Chart</button>
+          <button className="navigation-button" onClick={this.switchHistoric}>Historic Chart</button>
+          <button className="navigation-button" onClick={this.switchIndices}>Indices Chart</button>
         </div>
     )
   }

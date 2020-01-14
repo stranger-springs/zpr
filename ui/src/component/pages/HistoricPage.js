@@ -41,13 +41,42 @@ class HistoricPage extends React.Component {
   }
 
   saveDateRange = (event) => {
-    const startDate = this.state.beginTimestamp.toLocaleDateString()
-    const startTime = this.state.beginTimestamp.toLocaleTimeString()
-    const endDate = this.state.endTimestamp.toLocaleDateString()
-    const endTime = this.state.endTimestamp.toLocaleTimeString()
+    const startDate = this.formatDate(this.state.beginTimestamp)
+    const startTime = this.formatTime(this.state.beginTimestamp)
+    const endDate = this.formatDate(this.state.endTimestamp)
+    const endTime = this.formatTime(this.state.endTimestamp)
     const api = "http://localhost:8080/historical/" + this.state.aggregationType.value + "/" + this.state.selectedOption.value
         + "?start=" + startDate + " " + startTime + "&end=" + endDate + " " + endTime
     this.setState({api: api}, () => this.fetchData())
+  }
+
+  formatDate = (date) => {
+    var d = new Date(date),
+        month =  (d.getMonth() + 1),
+        day = d.getDate(),
+        year = d.getFullYear();
+
+    month = this.checkTime(month)
+    day = this.checkTime(day)
+    return day + "." + month + "." + year
+  }
+
+  checkTime = (i) => {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
+  formatTime = (date) => {
+    var d = new Date(date);
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var s = d.getSeconds();
+    // add a zero in front of numbers<10
+    m = this.checkTime(m);
+    s = this.checkTime(s);
+    return h + ":" + m + ":" + s
   }
 
   handleChangeBegin = (date) => {

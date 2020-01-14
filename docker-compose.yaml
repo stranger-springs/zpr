@@ -19,7 +19,7 @@ services:
   currency-api:
     image: currency-api:dss
     build:
-    context: ./currency-api
+      context: ./currency-api
       dockerfile: Dockerfile
     ports:
       - 8082:8082

@@ -1,14 +1,12 @@
 package com.strangersprings.zpr.client.process;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.CharStreams;
+import com.strangersprings.zpr.client.model.Currency;
+import com.strangersprings.zpr.client.model.CurrencyData;
+import com.strangersprings.zpr.client.process.apiclient.CurrencyApiClient;
 import com.strangersprings.zpr.client.process.dto.aggregation.AggregationDTO;
 import com.strangersprings.zpr.client.process.dto.currency.CurrenciesDTO;
 import com.strangersprings.zpr.client.process.dto.index.IndexesDTO;
-import com.strangersprings.zpr.client.model.Currency;
-import com.strangersprings.zpr.client.model.CurrencyData;
 import com.strangersprings.zpr.client.process.service.aggregation.AggregationService;
-import com.strangersprings.zpr.client.process.apiclient.CurrencyApiClient;
 import com.strangersprings.zpr.client.process.service.calc.CalculationService;
 import com.strangersprings.zpr.client.process.service.currency.CurrencyMapper;
 import com.strangersprings.zpr.client.process.service.currency.CurrencyService;
@@ -17,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
@@ -42,21 +37,8 @@ public class ProcessCoordinator {
         this.aggregationService = aggregationService;
         this.indexService = indexService;
         this.currencyService = currencyService;
-        this.calculationService = new CalculationService(loadConfigFile("Config.json"));
+        this.calculationService = new CalculationService(Utils.loadConfigFile(this.getClass(), "Config.json"));
         this.currencyMapper = currencyMapper;
-    }
-
-    private String loadConfigFile(String filename) {
-        String config = "";
-        try {
-            InputStream inputStream = getClass()
-                    .getClassLoader().getResourceAsStream(filename);
-            config = CharStreams.toString(new InputStreamReader(
-                    inputStream, Charsets.UTF_8));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return config;
     }
 
     @Scheduled(fixedRate = 5000, initialDelay = 5000)

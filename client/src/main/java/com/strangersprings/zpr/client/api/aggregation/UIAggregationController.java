@@ -26,8 +26,8 @@ public class UIAggregationController {
 
     @GetMapping("/{aggregationType}/{currencyType}")
     public List<UIAggregationDTO> getHistoricalData(@PathVariable String currencyType, @PathVariable String aggregationType,
-                                                    @RequestParam(name = "start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
-                                                    @RequestParam(name = "end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
+                                                    @RequestParam(name = "start") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") LocalDateTime startDate,
+                                                    @RequestParam(name = "end") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") LocalDateTime endDate) {
         return service.getHistoricalData(currencyType, aggregationType, startDate, endDate);
     }
 }

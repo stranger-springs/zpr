@@ -1,10 +1,10 @@
 import React from "react"
-import NavigationBar from "./NavigationBar"
-import Header from "./Header"
+import NavigationBar from "../NavigationBar"
+import Header from "../Header"
 import _ from "lodash"
 import Select from "react-select"
-import IndicesChart from "./charts/IndicesChart"
-import {options} from "./CurrencyOptions"
+import {options} from "../CurrencyOptions"
+import RealtimeChart from "../charts/RealtimeChart";
 
 const optionsIndices = [
   {value: "ema", label: "Exponential Moving Average (EMA)"},
@@ -26,34 +26,35 @@ class IndicesPage extends React.Component {
       selectedOption: _.head(options),
       selectedIndex: _.head(optionsIndices),
       selectedRange: _.head(optionsRange),
-      title: "",
-      api: "",
-      apiLast: ""
+      apiLink: ""
     }
+    this.chart = React.createRef()
+  }
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return (!_.isEqual(this.state.selectedOption, nextState.selectedOption)) ||
+        (!_.isEqual(this.state.selectedIndex, nextState.selectedIndex)) ||
+        (!_.isEqual(this.state.selectedRange, nextState.selectedRange))
   }
 
   handleChange = (opt) => {
-    this.setState({selectedOption: opt})
+    this.setState({selectedOption: opt}, () => this.chart.current.fetchData())
   }
 
   handleChangeIndices = (opt) => {
-    this.setState({selectedIndex: opt})
+    this.setState({selectedIndex: opt}, () => this.chart.current.fetchData())
   }
 
   handleChangeRange = (opt) => {
-    this.setState({selectedRange: opt})
-  }
-
-  loadData = (event) => {
-    const apiLink = "http://localhost:8080/index/" + this.state.selectedOption.value + "/"
-        + this.state.selectedIndex.value + this.state.selectedRange.label
-    const apiLinkLast = apiLink + "/last"
-    const title = this.state.selectedIndex.label + " for " + this.state.selectedOption.value
-        + " with range " + this.state.selectedRange.label
-    this.setState({title: title, api: apiLink, apiLast: apiLinkLast})
+    this.setState({selectedRange: opt}, () => this.chart.current.fetchData())
   }
 
   render() {
+    const {selectedOption, selectedIndex, selectedRange} = this.state
+    const api = "http://localhost:8080/index/" + selectedOption.value + "/" + selectedIndex.value + selectedRange.label
+    const apiLast = api + "/last"
+    const title = selectedIndex.label + " for " + selectedOption.value + " with range " + selectedRange.label
+
     return (
         <div className="app">
           <Header/>
@@ -64,7 +65,7 @@ class IndicesPage extends React.Component {
                 isSearchable="true"
                 placeholder="Select cryptocurrency"
                 options={options}
-                value={this.state.selectedOption}
+                value={selectedOption}
                 onChange={this.handleChange}
             />
             <Select
@@ -73,7 +74,7 @@ class IndicesPage extends React.Component {
                 isSearchable="true"
                 placeholder="Select type of index"
                 options={optionsIndices}
-                value={this.state.selectedIndex}
+                value={selectedIndex}
                 onChange={this.handleChangeIndices}
             />
             <Select
@@ -81,15 +82,16 @@ class IndicesPage extends React.Component {
                 isSearchable="true"
                 placeholder="Select range"
                 options={optionsRange}
-                value={this.state.selectedRange}
+                value={selectedRange}
                 onChange={this.handleChangeRange}
             />
           </div>
-          <button onClick={this.loadData}>Load</button>
-          <IndicesChart
-              api={this.state.api}
-              apiLast={this.state.apiLast}
-              title={this.state.title}
+          <RealtimeChart
+              api={api}
+              ref={this.chart}
+              apiLast={apiLast}
+              title={title}
+              getValue={(dto) => _.get(dto, "value")}
           />
         </div>
     )

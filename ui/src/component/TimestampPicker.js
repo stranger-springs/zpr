@@ -26,31 +26,37 @@ class TimestampPicker extends React.Component {
 
   render() {
     return (
-        <div className="datetime-picker">
-          <DatePicker
-              className="picker"
-              showTimeSelect
-              selected={this.state.beginTimestamp}
-              timeFormat="HH:mm"
-              timeIntervals={10}
-              todayButton="Today"
-              timeCaption="Time"
-              dateFormat="dd/MM/yyyy HH:mm"
-              maxDate={new Date()}
-              onChange={this.handleChangeBegin}
-          />
-          <DatePicker
-              className="picker"
-              showTimeSelect
-              selected={this.state.endTimestamp}
-              todayButton="Today"
-              timeFormat="HH:mm"
-              timeIntervals={10}
-              timeCaption="Time"
-              maxDate={new Date()}
-              dateFormat="dd/MM/yyyy HH:mm"
-              onChange={this.handleChangeEnd}
-          />
+        <div className="date-selectors">
+          <div className="datetimepicker-container">
+            <span>Start date</span>
+            <DatePicker
+                className="picker"
+                showTimeSelect
+                selected={this.state.beginTimestamp}
+                timeFormat="HH:mm"
+                timeIntervals={10}
+                todayButton="Today"
+                timeCaption="Time"
+                dateFormat="dd/MM/yyyy HH:mm"
+                maxDate={this.state.endTimestamp}
+                onChange={this.handleChangeBegin}
+            />
+          </div>
+          <div className="datetimepicker-container">
+            <span>End date</span>
+            <DatePicker
+                className="picker"
+                showTimeSelect
+                selected={this.state.endTimestamp}
+                todayButton="Today"
+                timeFormat="HH:mm"
+                timeIntervals={10}
+                timeCaption="Time"
+                maxDate={new Date()}
+                dateFormat="dd/MM/yyyy HH:mm"
+                onChange={this.handleChangeEnd}
+            />
+          </div>
         </div>
     )
   }

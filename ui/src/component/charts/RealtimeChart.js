@@ -3,8 +3,8 @@ import CanvasJSReact from "../../lib/canvasjs.react"
 import _ from "lodash"
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart
-var updateInterval = 5000
-var points = 150
+const updateInterval = 5000
+const maxPoints = 150
 
 class RealtimeChart extends React.Component {
 
@@ -37,11 +37,12 @@ class RealtimeChart extends React.Component {
         .then(currency => {
           if (this.mounted) {
             var points = this.state.points
-            points.splice(0, 1)
+
+            if (points.length >= maxPoints) {
+              points.splice(0, 1)
+            }
             points.push(this.getMappedPoint(currency))
-
             this.updateState(points)
-
             this.chart.render()
           }
         })
@@ -51,17 +52,14 @@ class RealtimeChart extends React.Component {
     fetch(this.props.api)
         .then(res => res.json())
         .then(currencies => {
-          const tempPoints = currencies.length > points ? currencies.slice(currencies.length - points, currencies.length) : currencies
-
+          const tempPoints = currencies.length > maxPoints ? currencies.slice(currencies.length - maxPoints, currencies.length) : currencies
           this.updateState(_.map(tempPoints, this.getMappedPoint))
-
           this.chart.render()
         })
-
   }
 
   getMappedPoint = (item) => {
-    return {x: new Date(item.timestamp), y: item.price}
+    return {x: new Date(item.timestamp), y: this.props.getValue(item)}
   }
 
   render() {
@@ -84,7 +82,8 @@ class RealtimeChart extends React.Component {
         type: "line",
         xValueFormatString: "DD MMM",
         markerSize: 5,
-        dataPoints: this.state.points
+        dataPoints: this.state.points,
+        toolTipContent: "Date: {x} <br/> Value: {y}"
       }]
     }
     return (

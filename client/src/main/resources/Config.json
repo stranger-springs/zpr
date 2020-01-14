@@ -50,6 +50,14 @@
         "type": "rsi",
         "entries": [
           {
+            "key": "rsi5",
+            "value": 5
+          },
+          {
+            "key": "rsi9",
+            "value": 9
+          },
+          {
             "key": "rsi14",
             "value": 14
           }

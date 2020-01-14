@@ -16,7 +16,7 @@ add_subdirectory(zpr_lib)
 
 include_directories(${JNI_INCLUDE_DIRS})
 set(SOURCE_FILES
-    com_strangersprings_zpr_client_service_calc_Calculator.cpp
+    com_strangersprings_zpr_client_process_service_calc_Calculator.cpp
 )
 
 add_library(native SHARED ${SOURCE_FILES} )

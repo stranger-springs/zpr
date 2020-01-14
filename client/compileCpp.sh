@@ -1,7 +1,7 @@
 #!/bin/bash
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-javaPath="./src/main/java/com/strangersprings/zpr/client/service/calc/"
+javaPath="./src/main/java/com/strangersprings/zpr/client/process/service/calc/"
 cppPath="./src/main/cpp"
 nativePath="../../../../native/linux_x86_64/"
 filename="libnative.so"

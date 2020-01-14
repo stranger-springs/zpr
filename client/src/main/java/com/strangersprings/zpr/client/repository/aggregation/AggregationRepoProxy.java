@@ -1,5 +1,6 @@
 package com.strangersprings.zpr.client.repository.aggregation;
 
+import com.google.common.collect.Lists;
 import com.strangersprings.zpr.client.model.Aggregation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,6 @@ public class AggregationRepoProxy {
     }
 
     public List<Aggregation> findAggregationsWithLimit(String currencyType, String aggregationType, LocalDateTime startDate, LocalDateTime endDate, int limit) {
-        return repository.findAggregationsWithLimit(currencyType, aggregationType, startDate, endDate, limit);
+        return Lists.reverse(repository.findAggregationsWithLimit(currencyType, aggregationType, startDate, endDate, limit));
     }
 }

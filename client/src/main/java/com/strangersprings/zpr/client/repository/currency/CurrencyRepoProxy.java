@@ -1,5 +1,6 @@
 package com.strangersprings.zpr.client.repository.currency;
 
+import com.google.common.collect.Lists;
 import com.strangersprings.zpr.client.model.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class CurrencyRepoProxy {
     }
 
     public List<Currency> findAllByTypeWithLimit(String type, int limit) {
-        return repository.findCurrenciesByTypeWithLimit(type.toLowerCase(), limit);
+        return Lists.reverse(repository.findCurrenciesByTypeWithLimit(type.toLowerCase(), limit));
     }
 
     public Currency getLastOne(String type) {

@@ -1,0 +1,50 @@
+{
+  "currencies": [
+    "bitcoin"
+  ],
+  "indexConfig": {
+    "types": [
+      "ema",
+      "sma"
+    ],
+    "indexes": [
+      {
+        "type": "ema",
+        "entries": [
+          {
+            "key": "ema5",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "type": "sma",
+        "entries": [
+          {
+            "key": "sma5",
+            "value": 5
+          }
+        ]
+      }
+    ]
+  },
+  "aggregationConfig": {
+    "ids": [
+      "minute",
+      "hourly"
+    ],
+    "types": [
+      {
+        "id": "minute",
+        "value": 5,
+        "next": "hourly"
+      },
+      {
+        "id": "hourly",
+        "value": 5,
+        "next": ""
+      }
+    ],
+    "firstId": "minute"
+  }
+}

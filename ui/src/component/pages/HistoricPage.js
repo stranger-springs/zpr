@@ -74,6 +74,7 @@ class HistoricPage extends React.Component {
     var m = d.getMinutes();
     var s = d.getSeconds();
     // add a zero in front of numbers<10
+    h = this.checkTime(h);
     m = this.checkTime(m);
     s = this.checkTime(s);
     return h + ":" + m + ":" + s

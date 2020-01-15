@@ -1,5 +1,8 @@
 package com.strangersprings.zpr.client.process.service.calc;
 
+/**
+ * klasa wczytuje biblioteka natywna C++ i wywoluje metody potrzebne do wyliczania agregacji oraz wartosci wskaznikow
+ */
 public class Calculator {
 
     static {

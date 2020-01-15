@@ -10,6 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequestMapping("/currency")
 public class CurrencyApi {
 
+    /**
+     * funkcja generujaca wartosci Bitcoina (BTC)
+     *
+     * @return wartosc kryptowaluty
+     */
+
     @GetMapping("/bitcoin")
     public CurrencyData getBitcoin() {
         return CurrencyData.builder()
@@ -20,6 +26,12 @@ public class CurrencyApi {
                 .pair("abc")
                 .build();
     }
+
+    /**
+     * funkcja generujaca wartosci Ethernum (ETH)
+     *
+     * @return wartosc kryptowaluty
+     */
 
     @GetMapping("/ethernum")
     public CurrencyData getEthernum() {
@@ -32,6 +44,12 @@ public class CurrencyApi {
                 .build();
     }
 
+    /**
+     * funkcja generujaca wartosci Litecoin (LTC)
+     *
+     * @return wartosc kryptowaluty
+     */
+
     @GetMapping("/litecoin")
     public CurrencyData getLitecoin() {
         return CurrencyData.builder()
@@ -42,6 +60,12 @@ public class CurrencyApi {
                 .pair("abc")
                 .build();
     }
+
+    /**
+     * funkcja generujaca wartosci ZCash (ZEC)
+     *
+     * @return wartosc kryptowaluty
+     */
 
     @GetMapping("/zcash")
     public CurrencyData getZCash() {

@@ -12,12 +12,21 @@ public class CalculationService {
         calculator = new Calculator(config);
     }
 
+    /**
+     * funkcja wykorzystujaca metody natywne modulu analitycznego C++ do obliczenia wartosci wskaznika
+     * @param currenciesDTO obiekt przechowujacy kryptowalute
+     * @return obiekt przechowujacy wyliczony wskaznik
+     */
     public IndexesDTO updateIndex(CurrenciesDTO currenciesDTO) {
         String input = JsonUtils.toJson(currenciesDTO);
         String result = calculator.calcIndex(input);
         return JsonUtils.fromJson(result, IndexesDTO.class);
     }
 
+    /**
+     * funkcja wykorzystujaca metody natywne modulu analitycznego c++ do wyznaczenia wartosci zagregowanych
+     * @return obiekt przechowujacy wyznaczona wartosc zagregowana
+     */
     public AggregationDTO updateAggregation() {
         String result = calculator.calcAggregation();
         return JsonUtils.fromJson(result, AggregationDTO.class);

@@ -16,6 +16,10 @@ public class CurrencyDataFetcher {
         this.fetcher = new DataFetcher<>(url, HttpEntity.EMPTY, CurrencyData.class);
     }
 
+    /**
+     * funkcja zwracajaca wartosc kryptowaluty
+     * @return wartosc kryptowaluty
+     */
     public CurrencyData getData() {
         return Objects.requireNonNull(fetcher.getCurrentData().getBody());
     }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @RestController
 @CrossOrigin
 @RequestMapping("/historical")
@@ -24,6 +25,13 @@ public class UIAggregationController {
         this.service = service;
     }
 
+    /**
+     * @param currencyType    typ kryptowaluty
+     * @param aggregationType rodzaj agregacji
+     * @param startDate       pocztkowa data zakresu
+     * @param endDate         koncowa data zakresu
+     * @return lista danych historycznych pobranych z bazy danych
+     */
     @GetMapping("/{aggregationType}/{currencyType}")
     public List<UIAggregationDTO> getHistoricalData(@PathVariable String currencyType, @PathVariable String aggregationType,
                                                     @RequestParam(name = "start") @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss") LocalDateTime startDate,

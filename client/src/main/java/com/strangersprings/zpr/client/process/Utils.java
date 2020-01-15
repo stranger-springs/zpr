@@ -20,10 +20,19 @@ public class Utils {
         return LocalDateTime.ofInstant(Instant.ofEpochSecond(val), ZoneId.of("Europe/Warsaw"));
     }
 
+    /**
+     * @param val wartosc do zaokraglenia
+     * @return zaokraglona wartosc
+     */
+
     public static BigDecimal getRoundedPrice(double val) {
         return BigDecimal.valueOf(val).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
+    /**
+     * @param val wartosc do zaokraglenia
+     * @return zaokraglona wartosc
+     */
     public static BigDecimal getRoundedValue(double val) {
         return BigDecimal.valueOf(val).setScale(2, BigDecimal.ROUND_HALF_UP);
     }

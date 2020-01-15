@@ -21,10 +21,20 @@ public class UICurrencyController {
         this.service = service;
     }
 
+    /**
+     * @param type typ kryptowaluty
+     * @return lista wartosci kryptowaluty
+     */
+
     @GetMapping("/{type}")
     public List<UICurrencyDTO> findAll(@PathVariable String type) {
         return service.findAll(type);
     }
+
+    /**
+     * @param type typ kryptowaluty
+     * @return ostatnia wartosc kryptowaluty zapisana w bazie danych
+     */
 
     @GetMapping("/{type}/last")
     public UICurrencyDTO getLastOne(@PathVariable String type) {

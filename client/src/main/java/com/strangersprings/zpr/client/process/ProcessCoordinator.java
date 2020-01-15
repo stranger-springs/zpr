@@ -41,11 +41,18 @@ public class ProcessCoordinator {
         this.currencyMapper = currencyMapper;
     }
 
+    /**
+     * funkcja wywolujaca processCurrencies() co 5 sekund
+     */
+
     @Scheduled(fixedRate = 5000, initialDelay = 5000)
     private void update() {
         processCurrencies();
     }
 
+    /**
+     * funkcja przetwarzajaca dane za pomoca funkcji modulu analitycznego, zapisujaca otrzymane dane do bazy danych
+     */
     private void processCurrencies() {
         Map<String, CurrencyData> currencies = currencyApiClient.getCurrencies();
         List<Currency> savedCurrencies = currencyService.saveCurrencies(currencies, Utils.getCurrentTimestamp());
